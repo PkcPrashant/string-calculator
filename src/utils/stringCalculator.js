@@ -2,6 +2,11 @@ export function sumFromString(numbers) {
     if (!numbers) return 0;
 
     const delimiters = [',', '\n'];
+    let customDelimiter = numbers.match(/^\/\/(.+)\n/);
+    if (customDelimiter) {
+        delimiters.push(customDelimiter[1]);
+        numbers = numbers.split('\n').slice(1).join('\n');
+    }
 
     const regex = new RegExp(`[${delimiters.join('')}]`);
     const numberArray = numbers.split(regex).map(Number);
